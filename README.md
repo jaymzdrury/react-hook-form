@@ -10,16 +10,54 @@
 
 ***
 
-### Extras
+### Honorable Mentions
 
-_confirm-password_
+_confirm-password_ with _zod_
 
 `.refine` for zod safety
 
 ```JavaScript
-    z.object({})
+    z.object({...})
     .refine((data) => data.password === data.confirmPassword, {
     message: "Passwords do not match",
     path: ["confirmPassword"], // path of error
   })
+```
+
+### Notes
+
+_required_ goes to _message_
+
+```JavaScript
+  {...register('email',
+    {required: /*Insert Message Here*/}
+  )}
+
+  //Message is Displayed Here
+  {errors.email.message}
+```
+
+_setError-root_ goes to _error-root_
+
+```JavaScript
+  //Error caught here
+  setError('root', {
+    message: 'Submit failed'
+  })
+
+  //is logged here
+  {errors['root']...}
+```
+
+_mode_ determines when to trigger validation
+
+```JavaScript
+  mode: 'onBlur' //default is 'onSubmit'
+```
+
+_isDirty_ means user has interacted with form
+
+```JavaScript
+  //disable input, until user has "dirtied" the form
+  <input type='email' disabled={!isDirty} />
 ```
